@@ -9,7 +9,7 @@ def button_click(button_num):
 
 # Create the main window
 window = tk.Tk()
-window.title("Real Estate Scraper")
+window.title("Real Estate Web Scraper")
 
 # Create a text field
 text_field = tk.Text(window, height=5, width=30)
