@@ -5,8 +5,12 @@ from bs4 import BeautifulSoup
 
 
 def scrapper(path):
+
+    #Gets the link of all the paths of the website
     links = linkGetter()
+    #Gets the names of the counties for naming files
     names = getFileNames()
+    # Used for iterating through and keeping track of counties
     index = 0
     for link in links:
         print("\nPath: " + link)
@@ -27,6 +31,7 @@ def scrapper(path):
         # Print the extracted links
         try:
             header = table.find_all("th")
+        # Handles event where there is no table 
         except:
             # Still skips ahead to the next name
             print(names[index] + " has no entries")
@@ -50,11 +55,14 @@ def scrapper(path):
             length = len(df)
             df.loc[length] = row
 
+        # Status of Operation is printed to the User
         print("Successful Webpage to CSV")
         print(df)
         filename = names[index] + ".csv"
         print(filename + " created")
         index += 1
+
+        # Adding .cvs files to a directory
         df.to_csv(os.path.join(path, filename))
         print(f"CSV file '{filename}' added to the folder.")
 
@@ -134,9 +142,16 @@ def create_folder(folder_path):
 
 def main():
 
+    # Default Path
     path = "./Houses"
+    
+    # Creates a Folder
     create_folder(path)
+    
+    #Run the web scraper 
     scrapper(path)
+    
+    #Alert the user the operation is complete 
     print("\nScrape Completed!")
 
 
